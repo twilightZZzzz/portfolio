@@ -1,0 +1,1479 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sergey Chukavin - Фотограф</title>
+    <meta name="description" content="Портфолио фотографа Сергея Чукавина: портретная, свадебная и коммерческая съёмка. Москва и регионы.">
+    <link rel="canonical" href="https://sergeychukavin.com/">
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="ru_RU">
+    <meta property="og:title" content="Sergey Chukavin — Фотограф">
+    <meta property="og:description" content="Портреты, свадьбы, коммерческие проекты. Современный стиль и внимание к деталям.">
+    <meta property="og:url" content="https://sergeychukavin.com/">
+    <meta property="og:image" content="https://sergeychukavin.com/og-image.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sergey Chukavin — Фотограф">
+    <meta name="twitter:description" content="Портреты, свадьбы, коммерческие проекты.">
+    <meta name="twitter:image" content="https://sergeychukavin.com/og-image.jpg">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: var(--bg-primary, #0a0a0a);
+            color: var(--text-primary, #fff);
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        :root {
+            --bg-primary: #0a0a0a;
+            --bg-secondary: rgba(255, 255, 255, 0.05);
+            --text-primary: #fff;
+            --text-secondary: #ccc;
+            --text-muted: #aaa;
+            --accent-primary: #667eea;
+            --accent-secondary: #764ba2;
+            --border-color: rgba(255, 255, 255, 0.1);
+            --card-bg: rgba(255, 255, 255, 0.05);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f5f7;
+            --bg-secondary: rgba(0, 0, 0, 0.05);
+            --text-primary: #1a1a1a;
+            --text-secondary: #444;
+            --text-muted: #666;
+            --accent-primary: #667eea;
+            --accent-secondary: #764ba2;
+            --border-color: rgba(0, 0, 0, 0.1);
+            --card-bg: rgba(0, 0, 0, 0.03);
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 90px;
+            right: 30px;
+            z-index: 1001;
+        }
+
+        .toggle-label {
+            position: relative;
+            height: 3em;
+            width: 6em;
+            border-radius: 9999px;
+            background: hsl(0, 0%, 7%);
+            box-shadow: 0px 2px 4px 0px rgba(18, 18, 18, 0.25), 0px 4px 8px 0px rgba(18, 18, 18, 0.35);
+            display: block;
+            cursor: pointer;
+        }
+
+        .toggle-border {
+            position: absolute;
+            inset: 0.1em;
+            border-radius: 9999px;
+            border: 1px solid hsl(0, 0%, 25%);
+        }
+
+        .toggle-circle-bg {
+            position: absolute;
+            left: 0.5em;
+            top: 50%;
+            height: 2em;
+            width: 2em;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background: white;
+            box-shadow: inset 0px 2px 2px 0px hsl(0, 0%, 85%);
+        }
+
+        .toggle-circle-inner {
+            height: 1.5em;
+            width: 1.5em;
+            border-radius: 9999px;
+            background: hsl(0, 0%, 7%);
+            box-shadow: 0px 2px 2px 0px hsl(0, 0%, 85%);
+        }
+
+        .toggle-line {
+            position: absolute;
+            right: 0.5em;
+            top: 50%;
+            height: 0.25em;
+            width: 1.5em;
+            transform: translateY(-50%);
+            border-radius: 9999px;
+            background: hsl(0, 0%, 50%);
+            box-shadow: inset 0px 2px 1px 0px hsl(0, 0%, 40%);
+        }
+
+        .toggle-input {
+            position: absolute;
+            height: 1em;
+            width: 1em;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            left: 0.25em;
+            top: 50%;
+            height: 2.5em;
+            width: 2.5em;
+            transform: translateY(-50%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 9999px;
+            background: rgb(26, 26, 26);
+            box-shadow: inset 4px 4px 4px 0px rgba(64, 64, 64, 0.25), inset -4px -4px 4px 0px rgba(16, 16, 16, 0.5);
+            transition: left 0.3s ease;
+        }
+
+        .toggle-input:checked ~ .toggle-slider {
+            left: calc(100% - 2.75em);
+        }
+
+        .toggle-slider-inner {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            border-radius: 9999px;
+        }
+
+        .toggle-slider-border {
+            position: absolute;
+            inset: 0.1em;
+            border-radius: 9999px;
+            border: 1px solid hsl(0, 0%, 50%);
+        }
+
+        /* Preloader */
+        .preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--bg-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .preloader.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .preloader-text {
+            margin-top: 20px;
+            font-size: 1.2rem;
+            color: var(--text-primary);
+            letter-spacing: 2px;
+        }
+
+        /* Loader Animation */
+        .loader {
+            --path: var(--accent-primary);
+            --dot: var(--accent-secondary);
+            --duration: 3s;
+            width: 44px;
+            height: 44px;
+            position: relative;
+        }
+
+        .loader:before {
+            content: "";
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            position: absolute;
+            display: block;
+            background: var(--dot);
+            top: 37px;
+            left: 19px;
+            transform: translate(-18px, -18px);
+            animation: dotRect var(--duration) cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        .loader svg {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        .loader svg rect,
+        .loader svg polygon,
+        .loader svg circle {
+            fill: none;
+            stroke: var(--path);
+            stroke-width: 10px;
+            stroke-linejoin: round;
+            stroke-linecap: round;
+        }
+
+        .loader svg rect {
+            stroke-dasharray: 192 64 192 64;
+            stroke-dashoffset: 0;
+            animation: pathRect 3s cubic-bezier(0.785, 0.135, 0.15, 0.86) infinite;
+        }
+
+        @keyframes pathRect {
+            25% {
+                stroke-dashoffset: 64;
+            }
+            50% {
+                stroke-dashoffset: 128;
+            }
+            75% {
+                stroke-dashoffset: 192;
+            }
+            100% {
+                stroke-dashoffset: 256;
+            }
+        }
+
+        @keyframes dotRect {
+            25% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(18px, -18px);
+            }
+            75% {
+                transform: translate(0, -36px);
+            }
+            100% {
+                transform: translate(-18px, -18px);
+            }
+        }
+
+        /* Image Loading State */
+        .portfolio-item.loading {
+            position: relative;
+        }
+
+        .portfolio-item.loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 40px;
+            height: 40px;
+            border: 3px solid rgba(102, 126, 234, 0.3);
+            border-top-color: #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: translate(-50%, -50%) rotate(360deg);
+            }
+        }
+
+        .portfolio-item img {
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .portfolio-item img.loaded {
+            opacity: 1;
+        }
+
+        .portfolio-item img.error {
+            opacity: 1; /* показываем заглушку вместо пустоты */
+            background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
+        }
+
+        /* Навигация в стиле Apple с анимированной обводкой */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            z-index: 1000;
+            background: rgba(10, 10, 10, 0.9);
+            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
+            backdrop-filter: saturate(180%) blur(8px);
+        }
+
+        nav.scrolled {
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+        }
+
+        .nav-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+        }
+
+        /* убраны декоративные обводки и анимации */
+
+        .container {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+        .logo {
+            padding: 0.5em 1.5em;
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: -0.5px;
+            color: #f5f5f7;
+            cursor: pointer;
+            transition: 0.1s;
+        }
+
+        .logo:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 0;
+            list-style: none;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin: 0;
+        }
+
+        .btn {
+            padding: 0.5em 1.5em;
+            color: #f5f5f7;
+            cursor: pointer;
+            transition: 0.1s;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: -0.01em;
+            display: block;
+            border-radius: 20px;
+        }
+
+        .btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        /* убраны hover-обводки от старой реализации */
+
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle at 30% 50%, rgba(102, 126, 234, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 70% 50%, rgba(118, 75, 162, 0.1) 0%, transparent 50%);
+            animation: pulse 8s ease-in-out infinite, bg-pan-left 8s both;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .bg-pan-left {
+            -webkit-animation: bg-pan-left 8s both;
+            animation: bg-pan-left 8s both;
+        }
+
+        @-webkit-keyframes bg-pan-left {
+            0% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes bg-pan-left {
+            0% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Subtle luxury wave gradient backdrop */
+        .hero-waves {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            opacity: 0.65;
+        }
+        .hero-waves svg {
+            position: absolute;
+            left: -25%;
+            top: -10%;
+            width: 150%;
+            height: 150%;
+            filter: blur(24px);
+        }
+        .hero-waves .wave-1 {
+            opacity: 0.5;
+            animation: waveMoveSlow 20s linear infinite;
+        }
+        .hero-waves .wave-2 {
+            opacity: 0.4;
+            animation: waveMoveFast 26s linear infinite reverse;
+        }
+        @keyframes waveMoveSlow {
+            0% { transform: translateX(0) translateY(0) scale(1.05); }
+            50% { transform: translateX(-6%) translateY(2%) scale(1.07); }
+            100% { transform: translateX(0) translateY(0) scale(1.05); }
+        }
+        @keyframes waveMoveFast {
+            0% { transform: translateX(0) translateY(0) scale(1.02); }
+            50% { transform: translateX(6%) translateY(-2%) scale(1.04); }
+            100% { transform: translateX(0) translateY(0) scale(1.02); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .hero-waves .wave-1, .hero-waves .wave-2 { animation: none; }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes tracking-in-expand {
+            0% {
+                letter-spacing: -0.5em;
+                opacity: 0;
+            }
+            40% {
+                opacity: 0.6;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+
+        .tracking-in-expand {
+            -webkit-animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+            animation: tracking-in-expand 0.7s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+        }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-weight: 300;
+            letter-spacing: 5px;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #fff 0%, #667eea 50%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            color: #aaa;
+            margin-bottom: 3rem;
+        }
+
+        .cta-button {
+            padding: 1rem 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            color: #fff;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: left 0.5s ease;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Section styles */
+        section {
+            padding: 8rem 5%;
+            position: relative;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 4rem;
+            text-align: center;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        /* Portfolio Grid */
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 4/3;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+
+        .portfolio-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .portfolio-item:hover img {
+            transform: scale(1.1);
+        }
+
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.9) 0%, rgba(118, 75, 162, 0.9) 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+
+        .portfolio-overlay h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+        }
+
+        .portfolio-overlay p {
+            font-size: 1rem;
+            letter-spacing: 1px;
+            color: #eee;
+        }
+
+        /* About Section */
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 5rem;
+            align-items: center;
+        }
+
+        .about-image {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(102, 126, 234, 0.3);
+        }
+
+        .shadow-drop-2-center {
+            -webkit-animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+            animation: shadow-drop-2-center 0.4s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+        }
+
+        @-webkit-keyframes shadow-drop-2-center {
+            0% {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+            100% {
+                -webkit-transform: translateZ(50px);
+                transform: translateZ(50px);
+                -webkit-box-shadow: 0 0 20px 0px rgba(102, 126, 234, 0.35);
+                box-shadow: 0 0 20px 0px rgba(102, 126, 234, 0.35);
+            }
+        }
+
+        @keyframes shadow-drop-2-center {
+            0% {
+                -webkit-transform: translateZ(0);
+                transform: translateZ(0);
+                -webkit-box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+                box-shadow: 0 0 0 0 rgba(102, 126, 234, 0);
+            }
+            100% {
+                -webkit-transform: translateZ(50px);
+                transform: translateZ(50px);
+                -webkit-box-shadow: 0 0 20px 0px rgba(102, 126, 234, 0.35);
+                box-shadow: 0 0 20px 0px rgba(102, 126, 234, 0.35);
+            }
+        }
+
+        .about-text h3 {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #ccc;
+            margin-bottom: 1rem;
+        }
+
+        /* Equipment Section */
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 3rem;
+            margin-top: 3rem;
+        }
+
+        .equipment-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 2.5rem;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .equipment-card:hover {
+            transform: translateY(-10px);
+            background: rgba(102, 126, 234, 0.1);
+            border-color: rgba(102, 126, 234, 0.3);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .equipment-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .equipment-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+
+        .equipment-card p {
+            color: #aaa;
+            line-height: 1.6;
+            font-size: 0.95rem;
+        }
+
+        /* Contact Section */
+        .contact-content {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-top: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-item a {
+            color: #667eea;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item a:hover {
+            color: #764ba2;
+        }
+
+        /* Footer */
+        footer {
+            padding: 3rem 5%;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.02);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        footer p {
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .hero p {
+                font-size: 1.2rem;
+            }
+
+            nav {
+                width: 95%;
+                top: 10px;
+            }
+
+            .container {
+                flex-wrap: wrap;
+                height: auto;
+                padding: 0.3em;
+            }
+
+            .logo {
+                display: none;
+            }
+
+            .btn {
+                padding: 0.4em 1em;
+                font-size: 11px;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Placeholder images styling */
+        .placeholder-img {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #667eea;
+            font-size: 3rem;
+        }
+
+        /* Lightbox (галерея) */
+        .lightbox {
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+        }
+        .lightbox.open { display: flex; }
+        .lightbox__img {
+            max-width: 90vw;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+        }
+        .lightbox__btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            width: 48px;
+            height: 48px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            user-select: none;
+        }
+        .lightbox__btn:hover { background: rgba(255,255,255,0.2); }
+        .lightbox__prev { left: 24px; }
+        .lightbox__next { right: 24px; }
+        .lightbox__close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 999px;
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="loader">
+            <svg viewBox="0 0 80 80">
+                <rect x="8" y="8" width="64" height="64"></rect>
+            </svg>
+        </div>
+        <div class="preloader-text">SERGEY CHUKAVIN</div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-content">
+            <div class="container">
+                <a href="#home" class="logo">Sergey Chukavin</a>
+                <a href="#home" class="btn">Главная</a>
+                <a href="#portfolio" class="btn">Портфолио</a>
+                <a href="#about" class="btn">О себе</a>
+                <a href="#equipment" class="btn">Оборудование</a>
+                <a href="#contact" class="btn">Контакты</a>
+                
+            </div>
+        </div>
+    </nav>
+
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <label class="toggle-label">
+            <span class="toggle-border"></span>
+            <div class="toggle-circle-bg">
+                <div class="toggle-circle-inner"></div>
+            </div>
+            <div class="toggle-line"></div>
+            <input class="toggle-input" type="checkbox" id="theme-toggle-input" aria-label="Переключить тему" />
+            <span class="toggle-slider">
+                <span class="toggle-slider-inner">
+                    <span class="toggle-slider-border"></span>
+                </span>
+            </span>
+        </label>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="tracking-in-expand">SERGEY CHUKAVIN</h1>
+            <p>CREATIVE PHOTOGRAPHER</p>
+            <a href="#portfolio" class="cta-button">СМОТРЕТЬ РАБОТЫ</a>
+        </div>
+        <div class="hero-waves" aria-hidden="true">
+            <!-- soft gradient waves using SVG paths -->
+            <svg class="wave-1" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#667eea" stop-opacity="0.75"/>
+                        <stop offset="100%" stop-color="#764ba2" stop-opacity="0.75"/>
+                    </linearGradient>
+                </defs>
+                <path fill="url(#grad1)" d="M0,160 C240,220 360,80 600,120 C840,160 960,280 1200,240 C1320,220 1380,200 1440,210 L1440,0 L0,0 Z"/>
+            </svg>
+            <svg class="wave-2" viewBox="0 0 1440 320" preserveAspectRatio="none">
+                <defs>
+                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" stop-color="#667eea" stop-opacity="0.5"/>
+                        <stop offset="100%" stop-color="#764ba2" stop-opacity="0.5"/>
+                    </linearGradient>
+                </defs>
+                <path fill="url(#grad2)" d="M0,220 C200,180 380,260 640,210 C900,160 1080,60 1440,140 L1440,0 L0,0 Z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <h2 class="section-title">ПОРТФОЛИО</h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item" data-gallery="portrait" aria-label="Открыть галерею Портрет" role="button" tabindex="0">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="./images/portfolio-portrait.jpg" alt="Портретная съемка" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>Портретная съемка</h3>
+                    <p>Fashion & Portrait</p>
+                </div>
+            </div>
+            <div class="portfolio-item" data-gallery="street" aria-label="Открыть галерею Стрит" role="button" tabindex="0">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="./images/portfolio-street.jpg" alt="Стрит" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>Стрит</h3>
+                    <p>Street Photography</p>
+                </div>
+            </div>
+            <div class="portfolio-item" data-gallery="night" aria-label="Открыть галерею Ночная съемка" role="button" tabindex="0">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="./images/portfolio-night.jpg" alt="Ночная съемка" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>Ночная съемка</h3>
+                    <p>Night Photography</p>
+                </div>
+            </div>
+            <div class="portfolio-item" data-gallery="art" aria-label="Открыть галерею Творческие проекты" role="button" tabindex="0">
+                <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="./images/portfolio-art.jpg" alt="Творческие проекты" loading="lazy">
+                <div class="portfolio-overlay">
+                    <h3>Творческие проекты</h3>
+                    <p>Art Projects</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2 class="section-title">ОБО МНЕ</h2>
+        <div class="about-content">
+            <img src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="./images/about.jpg" alt="Sergey Chukavin" class="about-image shadow-drop-2-center" style="height: 500px; width: 100%; object-fit: cover; border-radius: 10px;" loading="lazy">
+            <div class="about-text">
+                <h3>Привет! Я Сергей Чукавин — начинающий фотограф, который влюбился в искусство создания кадров.</h3>
+                <p>Моя страсть — ловить настоящие эмоции и атмосферу момента через объектив. Сейчас я особенно увлечён уличной и портретной съёмкой, а также обожаю работать с вечерним светом — в это время город преображается, и каждый кадр наполняется особой магией.</p>
+                <p>Я нахожусь в начале своего творческого пути, и каждая съёмка для меня — это возможность учиться, экспериментировать и открывать что-то новое.</p>
+                <p>Если вы ищете фотографа, который подойдёт к вашему проекту с энтузиазмом и свежим взглядом, буду рад поработать вместе!</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section id="equipment">
+        <h2 class="section-title">МОЁ ОБОРУДОВАНИЕ</h2>
+        <div class="equipment-grid">
+            <div class="equipment-card">
+                <div class="equipment-icon">📷</div>
+                <h3>Sony ZV-E10</h3>
+                <p>Компактная беззеркальная камера для фото и видео</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equipment-icon">🔭</div>
+                <h3>Kit 16-55mm f/3.5-5.6</h3>
+                <p>Универсальный объектив для разных сюжетов</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equipment-icon">💻</div>
+                <h3>MacBook Pro M1</h3>
+                <p>Рабочая станция для обработки фото и видео</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equipment-icon">🎨</div>
+                <h3>Adobe Lightroom</h3>
+                <p>Обработка и цветокоррекция фотографий</p>
+            </div>
+            <div class="equipment-card">
+                <div class="equipment-icon">📐</div>
+                <h3>Штатив</h3>
+                <p>Для стабильных кадров и съёмки в условиях слабого освещения</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2 class="section-title">СВЯЗАТЬСЯ СО МНОЙ</h2>
+        <div class="contact-content">
+            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">
+                Готов обсудить ваш проект и воплотить ваши идеи в жизнь
+            </p>
+            <a
+                id="telegram-cta"
+                class="cta-button"
+                href="https://t.me/sergeichukavin?text=%F0%9F%93%B7%20Привет%2C%20Сергей!%20Хочу%20обсудить%20съёмку.%20%F0%9F%92%AC"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Написать в Telegram"
+            >НАПИСАТЬ В TELEGRAM</a>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span style="font-size: 2rem;">📧</span>
+                    <a href="mailto:sergey@chukavin.com">sergey@chukavin.com</a>
+                </div>
+                <div class="contact-item">
+                    <span style="font-size: 2rem;">📱</span>
+                    <a href="tel:+79001234567">+7 (900) 123-45-67</a>
+                </div>
+                <div class="contact-item">
+                    <span style="font-size: 2rem;">📸</span>
+                    <a href="https://instagram.com/sergeychukavin" target="_blank" rel="noopener noreferrer">@sergeychukavin</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox markup -->
+    <div class="lightbox" id="lightbox" aria-modal="true" role="dialog" aria-label="Просмотр галереи" tabindex="-1">
+        <button class="lightbox__btn lightbox__prev" aria-label="Предыдущее">‹</button>
+        <img class="lightbox__img" id="lightbox-img" alt="Галерея">
+        <button class="lightbox__btn lightbox__next" aria-label="Следующее">›</button>
+        <button class="lightbox__close" aria-label="Закрыть">✕</button>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Sergey Chukavin. Все права защищены.</p>
+    </footer>
+
+    <script>
+        // Preloader (без искусственной задержки)
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.classList.add('hidden');
+        });
+
+        // Image lazy loading with animation
+        const imageObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    const parent = img.closest('.portfolio-item');
+                    
+                    if (parent) {
+                        parent.classList.add('loading');
+                    }
+                    
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.onload = () => {
+                            img.classList.add('loaded');
+                            if (parent) {
+                                parent.classList.remove('loading');
+                            }
+                        };
+                        img.onerror = () => {
+                            console.error('[Image load error]', img.dataset.src);
+                            img.classList.add('error');
+                            if (parent) {
+                                parent.classList.remove('loading');
+                            }
+                        };
+                    } else {
+                        img.classList.add('loaded');
+                        if (parent) {
+                            parent.classList.remove('loading');
+                        }
+                    }
+                    
+                    imageObserver.unobserve(img);
+                }
+            });
+        }, {
+            rootMargin: '50px'
+        });
+
+        // Observe all lazy images across the page
+        function initLazyImages() {
+            const lazyImages = document.querySelectorAll('img[data-src]');
+            if ('IntersectionObserver' in window) {
+                lazyImages.forEach(img => imageObserver.observe(img));
+            } else {
+                // Fallback: load immediately if IO unsupported
+                lazyImages.forEach(img => {
+                    img.src = img.dataset.src;
+                    img.onload = () => img.classList.add('loaded');
+                });
+            }
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initLazyImages);
+        } else {
+            initLazyImages();
+        }
+
+        // Theme Toggle
+        const themeToggle = document.getElementById('theme-toggle-input');
+        const htmlElement = document.documentElement;
+
+        // Check for saved theme preference or default to 'dark'
+        const currentTheme = localStorage.getItem('theme') || 'dark';
+        if (currentTheme === 'light') {
+            htmlElement.setAttribute('data-theme', 'light');
+            themeToggle.checked = true;
+        }
+
+        themeToggle.addEventListener('change', function() {
+            if (this.checked) {
+                htmlElement.setAttribute('data-theme', 'light');
+                localStorage.setItem('theme', 'light');
+            } else {
+                htmlElement.removeAttribute('data-theme');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+
+        // Scroll effects (объединено + rAF + prefers-reduced-motion)
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let scrollTicking = false;
+        function onScrollUpdate() {
+            const navbar = document.getElementById('navbar');
+            if (navbar) {
+                if (window.scrollY > 100) navbar.classList.add('scrolled');
+                else navbar.classList.remove('scrolled');
+            }
+            if (!prefersReducedMotion) {
+                const scrolled = window.pageYOffset;
+                const parallax = document.querySelector('.hero');
+                if (parallax) {
+                    parallax.style.transform = `translateY(${scrolled * 0.5}px)`;
+                }
+            }
+            scrollTicking = false;
+        }
+        window.addEventListener('scroll', () => {
+            if (!scrollTicking) {
+                scrollTicking = true;
+                requestAnimationFrame(onScrollUpdate);
+            }
+        }, { passive: true });
+
+        // Advanced Intersection Observer with stagger effect
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.style.opacity = '1';
+                        entry.target.style.transform = 'translateY(0) scale(1)';
+                    }, index * 100);
+                }
+            });
+        }, observerOptions);
+
+        // Portfolio items with different animations
+        document.querySelectorAll('.portfolio-item').forEach((el, index) => {
+            el.style.opacity = '0';
+            if (index % 3 === 0) {
+                el.style.transform = 'translateX(-50px) scale(0.9)';
+            } else if (index % 3 === 1) {
+                el.style.transform = 'translateY(50px) scale(0.9)';
+            } else {
+                el.style.transform = 'translateX(50px) scale(0.9)';
+            }
+            el.style.transition = 'all 0.8s cubic-bezier(0.4, 0, 0.2, 1)';
+            observer.observe(el);
+        });
+
+        // Equipment cards with bounce effect
+        document.querySelectorAll('.equipment-card').forEach((el, index) => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(50px) rotateX(20deg)';
+            el.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            observer.observe(el);
+        });
+
+        // About section
+        const aboutContent = document.querySelector('.about-content');
+        if (aboutContent) {
+            aboutContent.style.opacity = '0';
+            aboutContent.style.transform = 'translateY(30px)';
+            aboutContent.style.transition = 'all 0.8s ease';
+            observer.observe(aboutContent);
+        }
+
+        // Section titles animation
+        document.querySelectorAll('.section-title').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(-30px)';
+            el.style.transition = 'all 0.6s ease';
+            observer.observe(el);
+        });
+
+        // Mouse parallax effect for portfolio items
+        if (!prefersReducedMotion) {
+            document.querySelectorAll('.portfolio-item').forEach(item => {
+                item.addEventListener('mousemove', (e) => {
+                    const rect = item.getBoundingClientRect();
+                    const x = e.clientX - rect.left;
+                    const y = e.clientY - rect.top;
+                    const centerX = rect.width / 2;
+                    const centerY = rect.height / 2;
+                    const rotateX = (y - centerY) / 20;
+                    const rotateY = (centerX - x) / 20;
+                    item.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                });
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                });
+            });
+        }
+
+        // Smooth reveal for contact section
+        const contactSection = document.querySelector('#contact');
+        if (contactSection) {
+            contactSection.style.opacity = '0';
+            contactSection.style.transform = 'translateY(50px)';
+            contactSection.style.transition = 'all 1s ease';
+            observer.observe(contactSection);
+        }
+
+        // Add floating animation to CTA button
+        const ctaButton = document.querySelector('.cta-button');
+        if (ctaButton) {
+            setInterval(() => {
+                ctaButton.style.animation = 'none';
+                setTimeout(() => {
+                    ctaButton.style.animation = 'float 3s ease-in-out infinite';
+                }, 10);
+            }, 3000);
+        }
+
+        // Custom cursor effect for portfolio
+        const cursor = document.createElement('div');
+        cursor.style.cssText = `
+            width: 20px;
+            height: 20px;
+            border: 2px solid #667eea;
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: all 0.1s ease;
+            display: none;
+        `;
+        document.body.appendChild(cursor);
+
+        document.querySelector('#portfolio')?.addEventListener('mouseenter', () => {
+            cursor.style.display = 'block';
+        });
+
+        document.querySelector('#portfolio')?.addEventListener('mouseleave', () => {
+            cursor.style.display = 'none';
+        });
+
+        let cursorRafId = null;
+        let cursorPos = { x: 0, y: 0 };
+        function updateCursor() {
+            cursor.style.left = cursorPos.x + 'px';
+            cursor.style.top = cursorPos.y + 'px';
+            cursorRafId = null;
+        }
+        document.addEventListener('mousemove', (e) => {
+            cursorPos.x = e.clientX;
+            cursorPos.y = e.clientY;
+            if (!cursorRafId) cursorRafId = requestAnimationFrame(updateCursor);
+        }, { passive: true });
+
+        // Telegram CTA: попытка открыть приложение, затем fallback на веб
+        const telegramCta = document.getElementById('telegram-cta');
+        if (telegramCta) {
+            const tgDomain = 'sergeichukavin';
+            const tgText = '📷 Привет, Сергей! Хочу обсудить съёмку. 💬';
+            const appUrl = `tg://resolve?domain=${encodeURIComponent(tgDomain)}&text=${encodeURIComponent(tgText)}`;
+            const webUrl = telegramCta.getAttribute('href');
+            telegramCta.addEventListener('click', (e) => {
+                e.preventDefault();
+                const start = Date.now();
+                window.location.href = appUrl;
+                setTimeout(() => {
+                    // если приложение не открылось, откроем веб-версию
+                    if (Date.now() - start < 1500) {
+                        window.open(webUrl, '_blank', 'noopener');
+                    }
+                }, 600);
+            });
+        }
+
+        // Lightbox gallery
+        const galleryMap = {
+            portrait: [
+                './images/portrait-1.jpg',
+                './images/portrait-2.jpg',
+                './images/portrait-3.jpg'
+            ],
+            street: [
+                './images/street-1.jpg',
+                './images/street-2.jpg',
+                './images/street-3.jpg'
+            ],
+            night: [
+                './images/night-1.jpg',
+                './images/night-2.jpg',
+                './images/night-3.jpg'
+            ],
+            art: [
+                './images/art-1.jpg',
+                './images/art-2.jpg',
+                './images/art-3.jpg'
+            ]
+        };
+
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightbox-img');
+        const btnPrev = lightbox.querySelector('.lightbox__prev');
+        const btnNext = lightbox.querySelector('.lightbox__next');
+        const btnClose = lightbox.querySelector('.lightbox__close');
+        let currentGallery = [];
+        let currentIndex = 0;
+
+        function openLightbox(images, startIndex = 0) {
+            currentGallery = images;
+            currentIndex = startIndex;
+            updateLightboxImage();
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+            lightbox.focus();
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('open');
+            document.body.style.overflow = '';
+        }
+
+        function updateLightboxImage() {
+            if (!currentGallery.length) return;
+            lightboxImg.src = currentGallery[currentIndex];
+        }
+
+        function showNext() {
+            currentIndex = (currentIndex + 1) % currentGallery.length;
+            updateLightboxImage();
+        }
+
+        function showPrev() {
+            currentIndex = (currentIndex - 1 + currentGallery.length) % currentGallery.length;
+            updateLightboxImage();
+        }
+
+        document.querySelectorAll('.portfolio-item[data-gallery]').forEach(item => {
+            item.addEventListener('click', () => {
+                const key = item.getAttribute('data-gallery');
+                const images = galleryMap[key] || [];
+                if (images.length) openLightbox(images, 0);
+            });
+            item.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    const key = item.getAttribute('data-gallery');
+                    const images = galleryMap[key] || [];
+                    if (images.length) openLightbox(images, 0);
+                }
+            });
+        });
+
+        btnClose.addEventListener('click', closeLightbox);
+        btnNext.addEventListener('click', showNext);
+        btnPrev.addEventListener('click', showPrev);
+        lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+
+        window.addEventListener('keydown', (e) => {
+            if (!lightbox.classList.contains('open')) return;
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowRight') showNext();
+            if (e.key === 'ArrowLeft') showPrev();
+        });
+
+        // Touch swipe for lightbox
+        let touchStartX = 0;
+        lightbox.addEventListener('touchstart', (e) => { touchStartX = e.changedTouches[0].clientX; }, { passive: true });
+        lightbox.addEventListener('touchend', (e) => {
+            const dx = e.changedTouches[0].clientX - touchStartX;
+            if (Math.abs(dx) > 40) {
+                dx < 0 ? showNext() : showPrev();
+            }
+        }, { passive: true });
+    </script>
+
+    <style>
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+    </style>
+</body>
+</html>
