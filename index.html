@@ -304,59 +304,57 @@
             background: linear-gradient(135deg, #2a2a2a, #1a1a1a);
         }
 
-        /* Навигация в стиле Apple с анимированной обводкой */
+        /* Modern Floating Glassmorphism Navigation */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            max-width: calc(100% - 80px);
             height: 60px;
             z-index: 1000;
-            background: rgba(10, 10, 10, 0.9);
-            border-bottom: 1px solid rgba(102, 126, 234, 0.15);
-            backdrop-filter: saturate(180%) blur(8px);
+            background: rgba(10, 10, 10, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            backdrop-filter: blur(20px) saturate(180%);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="light"] nav {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
         }
 
         nav.scrolled {
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+            height: 55px;
+            box-shadow: 0 8px 32px rgba(102, 126, 234, 0.2);
+            border-color: rgba(102, 126, 234, 0.3);
         }
 
         .nav-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            height: 60px;
+            height: 100%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             padding: 0 20px;
         }
 
-        /* убраны декоративные обводки и анимации */
-
         .container {
             display: flex;
-            gap: 12px;
+            gap: 4px;
             align-items: center;
         }
 
         .logo {
-            padding: 0.5em 1.5em;
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: -0.5px;
-            color: #f5f5f7;
-            cursor: pointer;
-            transition: 0.1s;
-        }
-
-        .logo:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
+            display: none;
         }
 
         .nav-links {
             display: flex;
-            gap: 0;
+            gap: 4px;
             list-style: none;
             margin: 0;
         }
@@ -366,23 +364,42 @@
         }
 
         .btn {
-            padding: 0.5em 1.5em;
-            color: #f5f5f7;
+            padding: 8px 16px;
+            color: var(--text-primary);
             cursor: pointer;
-            transition: 0.1s;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-decoration: none;
-            font-size: 12px;
-            font-weight: 400;
+            font-size: 13px;
+            font-weight: 500;
             letter-spacing: -0.01em;
             display: block;
-            border-radius: 20px;
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.15) 0%, rgba(118, 75, 162, 0.15) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            border-radius: 10px;
+        }
+
+        .btn:hover::before {
+            opacity: 1;
         }
 
         .btn:hover {
-            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            color: #667eea;
         }
 
-        /* убраны hover-обводки от старой реализации */
+        .btn:active {
+            transform: translateY(0);
+        }
 
         /* Hero Section */
         .hero {
@@ -706,50 +723,137 @@
             margin-bottom: 1rem;
         }
 
-        /* Equipment Section */
+        /* Equipment Section - Modern Timeline Style */
         .equipment-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
             margin-top: 3rem;
+            position: relative;
+        }
+
+        /* Vertical line */
+        .equipment-grid::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(102, 126, 234, 0.5) 10%,
+                rgba(102, 126, 234, 0.5) 90%,
+                transparent 100%);
+            transform: translateX(-50%);
+        }
+
+        .equipment-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+            position: relative;
+        }
+
+        .equipment-row.center {
+            grid-template-columns: 1fr;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .equipment-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 2.5rem;
-            border-radius: 15px;
+            padding: 2rem;
             text-align: center;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
         }
 
-        .equipment-card:hover {
-            transform: translateY(-10px);
-            background: rgba(102, 126, 234, 0.1);
-            border-color: rgba(102, 126, 234, 0.3);
-            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.2);
+        .equipment-card::before {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+            box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 6px rgba(102, 126, 234, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .equipment-row:not(.center) .equipment-card:first-child::before {
+            right: -2.1rem;
+        }
+
+        .equipment-row:not(.center) .equipment-card:last-child::before {
+            left: -2.1rem;
+        }
+
+        .equipment-row.center .equipment-card::before {
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 24px;
+            height: 24px;
+        }
+
+        .equipment-card:hover::before {
+            box-shadow: 0 0 0 4px var(--bg-primary), 0 0 0 8px rgba(102, 126, 234, 0.5), 0 0 20px rgba(102, 126, 234, 0.4);
+            transform: translateY(-50%) scale(1.2);
+        }
+
+        .equipment-row.center .equipment-card:hover::before {
+            transform: translate(-50%, -50%) scale(1.3);
         }
 
         .equipment-icon {
-            font-size: 3rem;
+            font-size: 3.5rem;
             margin-bottom: 1.5rem;
+            display: inline-block;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            filter: drop-shadow(0 4px 8px rgba(102, 126, 234, 0.3));
+        }
+
+        .equipment-card:hover .equipment-icon {
+            transform: scale(1.15) rotateY(180deg);
+            filter: drop-shadow(0 8px 16px rgba(102, 126, 234, 0.5));
         }
 
         .equipment-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.4rem;
             margin-bottom: 1rem;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, rgba(102, 126, 234, 0.8) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .equipment-card:hover h3 {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .equipment-card p {
-            color: #aaa;
-            line-height: 1.6;
-            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+            font-size: 1rem;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
         }
 
-        /* Contact Section */
+        .equipment-card:hover p {
+            opacity: 1;
+        }
+
+        /* Contact Section - Minimalist Floating Style */
         .contact-content {
-            max-width: 600px;
+            max-width: 700px;
             margin: 0 auto;
             text-align: center;
         }
@@ -757,8 +861,9 @@
         .contact-info {
             display: flex;
             justify-content: center;
-            gap: 3rem;
-            margin-top: 3rem;
+            align-items: center;
+            gap: 4rem;
+            margin-top: 4rem;
             flex-wrap: wrap;
         }
 
@@ -766,18 +871,102 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 1.2rem;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+        }
+
+        .contact-item::before {
+            content: '';
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            background: radial-gradient(circle, rgba(102, 126, 234, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.4s ease;
+            z-index: 0;
+        }
+
+        .contact-item:hover::before {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .contact-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 4px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .contact-item:hover .contact-icon {
+            transform: translateY(-15px) scale(1.15);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.5);
+            filter: brightness(1.1);
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-item:hover .contact-details {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .contact-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-weight: 700;
         }
 
         .contact-item a {
-            color: #667eea;
+            color: var(--text-primary);
             text-decoration: none;
-            font-size: 1.1rem;
-            transition: color 0.3s ease;
+            font-size: 1.15rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
-        .contact-item a:hover {
-            color: #764ba2;
+        .contact-item a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .contact-item:hover a::after {
+            transform: scaleX(1);
+        }
+
+        .contact-item:hover a {
+            color: #667eea;
         }
 
         /* Footer */
@@ -804,23 +993,30 @@
             }
 
             nav {
-                width: 95%;
+                width: calc(100% - 20px);
                 top: 10px;
+                height: 60px;
+                border-radius: 16px;
+            }
+
+            nav.scrolled {
+                width: calc(100% - 20px);
+                height: 55px;
+            }
+
+            .nav-content {
+                padding: 0 15px;
             }
 
             .container {
                 flex-wrap: wrap;
-                height: auto;
-                padding: 0.3em;
-            }
-
-            .logo {
-                display: none;
+                gap: 4px;
+                justify-content: center;
             }
 
             .btn {
-                padding: 0.4em 1em;
-                font-size: 11px;
+                padding: 8px 14px;
+                font-size: 12px;
             }
 
             .about-content {
@@ -833,6 +1029,65 @@
 
             .section-title {
                 font-size: 2rem;
+            }
+
+            .theme-toggle {
+                top: 80px;
+                right: 15px;
+                transform: scale(0.9);
+            }
+
+            .contact-info {
+                gap: 3rem;
+                margin-top: 3rem;
+            }
+
+            .contact-icon {
+                width: 80px;
+                height: 80px;
+                font-size: 2.2rem;
+            }
+
+            .contact-details {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            .contact-item a {
+                font-size: 1rem;
+            }
+
+            /* Equipment mobile styles */
+            .equipment-grid::before {
+                display: none;
+            }
+
+            .equipment-row,
+            .equipment-row.center {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                margin-bottom: 2.5rem;
+                max-width: 100%;
+            }
+
+            .equipment-card::before {
+                display: none;
+            }
+
+            .equipment-card {
+                padding: 1.5rem;
+                background: var(--card-bg);
+                border: 1px solid var(--border-color);
+                border-radius: 12px;
+            }
+
+            .equipment-card:hover {
+                background: rgba(102, 126, 234, 0.1);
+                border-color: rgba(102, 126, 234, 0.3);
+            }
+
+            .equipment-icon {
+                font-size: 3rem;
             }
         }
 
@@ -917,13 +1172,11 @@
     <nav id="navbar">
         <div class="nav-content">
             <div class="container">
-                <a href="#home" class="logo">Sergey Chukavin</a>
                 <a href="#home" class="btn">Главная</a>
                 <a href="#portfolio" class="btn">Портфолио</a>
                 <a href="#about" class="btn">О себе</a>
                 <a href="#equipment" class="btn">Оборудование</a>
                 <a href="#contact" class="btn">Контакты</a>
-                
             </div>
         </div>
     </nav>
@@ -1028,30 +1281,41 @@
     <section id="equipment">
         <h2 class="section-title">МОЁ ОБОРУДОВАНИЕ</h2>
         <div class="equipment-grid">
-            <div class="equipment-card">
-                <div class="equipment-icon">📷</div>
-                <h3>Sony ZV-E10</h3>
-                <p>Компактная беззеркальная камера для фото и видео</p>
+            <!-- First Row: 2 items -->
+            <div class="equipment-row">
+                <div class="equipment-card">
+                    <div class="equipment-icon">📷</div>
+                    <h3>Sony ZV-E10</h3>
+                    <p>Компактная беззеркальная камера для фото и видео</p>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-icon">🔭</div>
+                    <h3>Kit 16-55mm f/3.5-5.6</h3>
+                    <p>Универсальный объектив для разных сюжетов</p>
+                </div>
             </div>
-            <div class="equipment-card">
-                <div class="equipment-icon">🔭</div>
-                <h3>Kit 16-55mm f/3.5-5.6</h3>
-                <p>Универсальный объектив для разных сюжетов</p>
+
+            <!-- Center Row: 1 item (featured) -->
+            <div class="equipment-row center">
+                <div class="equipment-card">
+                    <div class="equipment-icon">💻</div>
+                    <h3>MacBook Pro M1</h3>
+                    <p>Рабочая станция для обработки фото и видео</p>
+                </div>
             </div>
-            <div class="equipment-card">
-                <div class="equipment-icon">💻</div>
-                <h3>MacBook Pro M1</h3>
-                <p>Рабочая станция для обработки фото и видео</p>
-            </div>
-            <div class="equipment-card">
-                <div class="equipment-icon">🎨</div>
-                <h3>Adobe Lightroom</h3>
-                <p>Обработка и цветокоррекция фотографий</p>
-            </div>
-            <div class="equipment-card">
-                <div class="equipment-icon">📐</div>
-                <h3>Штатив</h3>
-                <p>Для стабильных кадров и съёмки в условиях слабого освещения</p>
+
+            <!-- Last Row: 2 items -->
+            <div class="equipment-row">
+                <div class="equipment-card">
+                    <div class="equipment-icon">🎨</div>
+                    <h3>Adobe Lightroom</h3>
+                    <p>Обработка и цветокоррекция фотографий</p>
+                </div>
+                <div class="equipment-card">
+                    <div class="equipment-icon">📐</div>
+                    <h3>Штатив</h3>
+                    <p>Для стабильных кадров и съёмки в условиях слабого освещения</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1060,7 +1324,7 @@
     <section id="contact">
         <h2 class="section-title">СВЯЗАТЬСЯ СО МНОЙ</h2>
         <div class="contact-content">
-            <p style="font-size: 1.2rem; color: #ccc; margin-bottom: 2rem;">
+            <p style="font-size: 1.2rem; color: var(--text-secondary); margin-bottom: 2rem;">
                 Готов обсудить ваш проект и воплотить ваши идеи в жизнь
             </p>
             <a
@@ -1070,19 +1334,29 @@
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Написать в Telegram"
+                style="margin-bottom: 3rem;"
             >НАПИСАТЬ В TELEGRAM</a>
             <div class="contact-info">
-                <div class="contact-item">
-                    <span style="font-size: 2rem;">📧</span>
-                    <a href="mailto:sergey@chukavin.com">sergey@chukavin.com</a>
+                <div class="contact-item" onclick="window.location.href='mailto:sergey@chukavin.com'">
+                    <div class="contact-icon">📧</div>
+                    <div class="contact-details">
+                        <span class="contact-label">Email</span>
+                        <a href="mailto:sergey@chukavin.com">sergey@chukavin.com</a>
+                    </div>
                 </div>
-                <div class="contact-item">
-                    <span style="font-size: 2rem;">📱</span>
-                    <a href="tel:+79001234567">+7 (900) 123-45-67</a>
+                <div class="contact-item" onclick="window.location.href='tel:+79001234567'">
+                    <div class="contact-icon">📱</div>
+                    <div class="contact-details">
+                        <span class="contact-label">Телефон</span>
+                        <a href="tel:+79001234567">+7 (900) 123-45-67</a>
+                    </div>
                 </div>
-                <div class="contact-item">
-                    <span style="font-size: 2rem;">📸</span>
-                    <a href="https://instagram.com/sergeychukavin" target="_blank" rel="noopener noreferrer">@sergeychukavin</a>
+                <div class="contact-item" onclick="window.open('https://instagram.com/sergeychukavin', '_blank', 'noopener')">
+                    <div class="contact-icon">📸</div>
+                    <div class="contact-details">
+                        <span class="contact-label">Instagram</span>
+                        <a href="https://instagram.com/sergeychukavin" target="_blank" rel="noopener noreferrer">@sergeychukavin</a>
+                    </div>
                 </div>
             </div>
         </div>
